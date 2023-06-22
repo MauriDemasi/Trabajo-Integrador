@@ -1,0 +1,27 @@
+{
+  "name": "trabajo-integrador",
+  "version": "1.0.0",
+  "description": "Api REST de Librerias",
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "start:dev": "nodemon src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "lodash": "^4.17.21",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.1",
+    "sequelize": "^6.32.0",
+    "sqlite3": "^5.1.6"
+  }
+}
+

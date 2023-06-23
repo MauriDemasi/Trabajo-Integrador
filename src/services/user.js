@@ -1,10 +1,10 @@
 const {userProvider}= require ('../providers')
 
-
-const createUser = async (user) => {
-    return await userProvider.createUser(user)
-
+const loginValidate= async (fullname, password)=>{
+    const userFound= await userProvider.loginValidate({fullname, password});
+    return userFound;
 }
 
 
-module.exports= {createUser}
+
+module.exports= {loginValidate}

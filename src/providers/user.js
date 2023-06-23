@@ -1,14 +1,27 @@
 const {User} = require('../models')
 
-const createUser = async (user) => {
-    try {
-      const newUser = await User.create(user);
-      return newUser;
-    } catch (err) {
-      console.error("Error when creating User", err);
-      throw err;
+
+const loginValidate = async (options) => {
+  try {
+    const user = await User.findAll({
+      where: {
+        fullname: options.fullname,
+        password: options.password
+      },
+    });
+
+    if (user.length !== 0) {
+      return user;
     }
-  };
+  
+    return false;
+  } catch (error) {
+    console.error('Error validating user', error)
+    return false;
+  }
+}
 
 
-module.exports = {createUser}
+
+
+module.exports = {loginValidate}

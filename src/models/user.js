@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const {sequelize} = require('../config/db-config');
 
+
  const User = sequelize.define("Users", {
   
   id: {
@@ -25,20 +26,19 @@ const {sequelize} = require('../config/db-config');
     type: DataTypes.STRING,
     allowNull: false,
   },
-
-  isAdmin:{
+  isAdmin: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   }
 });
 
-
-sequelize.sync({ force: false }) //todo!! Esto eliminará y recreará la tabla en cada reinicio
+sequelize.sync({ force: true }) // Esto eliminará y recreará la tabla en cada reinicio
   .then(() => {
     return User.bulkCreate([
-      { fullName: 'admin', email:'admin@admin.com', password:'admin', isAdmin:true },
-      { fullName: 'user1', email:'user1@xacademy.com', password:'user1' },
+      { fullName: 'admin', email: 'admin@xacademy.com', password: 'admin', isAdmin: true   },
+      { fullName: 'user', email: 'user1@xacademy.com', password: 'user1' },
 
+      // Añade más registros según sea necesario
     ]);
   })
   .then(() => {
@@ -47,6 +47,7 @@ sequelize.sync({ force: false }) //todo!! Esto eliminará y recreará la tabla e
   .catch(err => {
     console.error('Error al poblar la tabla:', err);
   });
+
 
 
 module.exports = User;

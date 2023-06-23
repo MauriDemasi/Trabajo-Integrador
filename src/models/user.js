@@ -26,16 +26,16 @@ const {sequelize} = require('../config/db-config');
     type: DataTypes.STRING,
     allowNull: false,
   },
-  isAdmin: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
+  role: {
+    type: DataTypes.STRING,
+    defaultValue: 'user',
   }
 });
 
 sequelize.sync({ force: true }) // Esto eliminará y recreará la tabla en cada reinicio
   .then(() => {
     return User.bulkCreate([
-      { fullName: 'admin', email: 'admin@xacademy.com', password: 'admin', isAdmin: true   },
+      { fullName: 'admin', email: 'admin@xacademy.com', password: 'admin', role: 'admin'  },
       { fullName: 'user', email: 'user1@xacademy.com', password: 'user1' },
 
       // Añade más registros según sea necesario

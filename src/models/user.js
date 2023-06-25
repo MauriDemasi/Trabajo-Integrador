@@ -9,9 +9,10 @@ const {sequelize} = require('../config/db-config');
     primaryKey: true,
     autoIncrement: true,
   },
-  fullName: {
+  username: {
     type: DataTypes.STRING,
     allowNull: false,
+    unique: true,
   },
 
   email: {
@@ -26,19 +27,18 @@ const {sequelize} = require('../config/db-config');
     type: DataTypes.STRING,
     allowNull: false,
   },
-  role: {
-    type: DataTypes.STRING,
-    defaultValue: 'user',
-  }
+  // role: {
+  //   type: DataTypes.STRING,
+  //   defaultValue: 'user',
+  // },
+
 });
 
 sequelize.sync({ force: true }) // Esto eliminará y recreará la tabla en cada reinicio
   .then(() => {
     return User.bulkCreate([
-      { fullName: 'admin', email: 'admin@xacademy.com', password: 'admin', role: 'admin'  },
-      { fullName: 'user', email: 'user1@xacademy.com', password: 'user1' },
-
-      // Añade más registros según sea necesario
+      { username: 'admin', email: 'admin@xacademy.com', password: 'admin' },
+      { username: 'user', email: 'user1@xacademy.com', password: 'user1' },
     ]);
   })
   .then(() => {

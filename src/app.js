@@ -1,15 +1,14 @@
 const express = require("express");
 const { userRouter }= require("./routes")
 const { initializeDB } = require("../src/config/db-config");
-const { authMiddleware } = require("./middleware/authMiddleware");
-
+const { userIsAdminMDW } = require("./middleware/authMiddleware");
 
 const PORT=9009
 const app = express();
 
 app.use(express.json());
 
-app.use(authMiddleware)
+app.use(userIsAdminMDW)
 
 
 app.get('/user', (req, res)=>{

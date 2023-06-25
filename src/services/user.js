@@ -1,7 +1,7 @@
 const {userProvider}= require ('../providers')
 
-const loginValidate= async (fullname, password)=>{
-    const userFound= await userProvider.loginValidate({fullname, password});
+const loginValidate= async (fullName, password)=>{
+    const userFound= await userProvider.loginValidate({fullName, password});
     return userFound;
 }
 

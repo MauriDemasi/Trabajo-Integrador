@@ -3,23 +3,24 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const {userService} = require ('../services')
 
-const {secret}= require('../middleware/authMiddleware')
+const {SECRET}= require('../middleware/authMiddleware')
 
-router.post('/user/login', async (req, res) => {
-    const { fullname, password } = req.body;
+router.post('/login', (req, res) => {
+    const { username, password } = req.body;
+  
+    // Verificar si el nombre de usuario y la contraseña son correctos
+    if (username === 'admin' && password === 'admin') {
+      // Generar un token JWT con información sobre el usuario y su rol
+      const token = jwt.sign({ username, role: 'admin' }, SECRET);
+  
+      // Enviar el token al cliente en la respuesta
+      res.json({ token });
+    } else {
+      // Si el nombre de usuario o la contraseña son incorrectos, enviar un error
+      res.status(401).json({ error: 'Invalid username or password' });
+    }
+  });
 
-    if (fullname === "admin" && password === "admin") {
-        const token = jwt.sign({ fullname, role : "admin" }, secret, {} );
-        return res.json({ token });
-    } else{
-        const userFound= await userService.loginValidate(fullname,password)
-        if(userFound){
-            const token = jwt.sign({ fullname, role : "user" }, secret, {} );
-            return res.json({ token });
-        }
-        return res.status(401).json({ error: "Please check your credentials" });
-    }    
-}) ;
 
 
 module.exports = router;

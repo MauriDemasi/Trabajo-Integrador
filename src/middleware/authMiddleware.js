@@ -3,40 +3,40 @@ const passportJwt= require('passport-jwt');
 const JWTStrategy = passportJwt.Strategy;
 const ExtractJWT = passportJwt.ExtractJwt;
 
- const secret = "PalabraSuperSegura"
+ const SECRET = "PalabraSuperSegura"
+
 
 
 passport.use(
     new JWTStrategy(
     {
-        jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-        secretOrKey: secret
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey: SECRET,
     },
-    
     (jwtPayload, done) => {
-        return done(null, jwtPayload);
+        const user=jwtPayload;
+        return done(null, user);
+    
     }
-    )
-
+)
 );
 
-const authMiddleware = passport.authenticate('jwt', {session: false});
+const jwtValidMDW= passport.authenticate('jwt', {session: false});
 
-const adminValidate = (req, res, next) => {
+const userIsAdminMDW = (req, res, next) => {
     return passport.authenticate('jwt', {session: false}, (err, user, info) => {
-        if (err) {
+        if(err) {
             console.err(err);
             return next(err);
         }
-
-        if(user.role === "admin"){
-            req.user = user;
-            return next()
+        if (user.role === 'admin') {
+            req.user= user;
+            return next();
         }
 
-        res.status(403).json({error: "This user isn't an admin."});
-    })(req, res, next)
+        res.status(401).json({message: 'Unauthorized'});
+    })(req, res, next);
 };
 
-module.exports = {authMiddleware, adminValidate, secret}; 
+module.exports = {jwtValidMDW, userIsAdminMDW, SECRET}
   

@@ -23,7 +23,7 @@ passport.use(
 
 const jwtValidMDW= passport.authenticate('jwt', {session: false});
 
-const userIsAdminMDW = (req, res, next) => {
+const validateAuthMDW = (req, res, next) => {
     return passport.authenticate('jwt', {session: false}, (err, user, info) => {
         if(err) {
             console.err(err);
@@ -38,5 +38,5 @@ const userIsAdminMDW = (req, res, next) => {
     })(req, res, next);
 };
 
-module.exports = {jwtValidMDW, userIsAdminMDW, SECRET}
+module.exports = {jwtValidMDW, validateAuthMDW, SECRET}
   

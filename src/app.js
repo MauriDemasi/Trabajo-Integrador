@@ -1,7 +1,7 @@
 const express = require("express");
-const { userRouter }= require("./routes")
+const { userRouter, bookRouter }= require("./routes")
 const { initializeDB } = require("../src/config/db-config");
-const { userIsAdminMDW } = require("./middleware/authMiddleware");
+const { validateAuthMDW } = require("./middleware/authMiddleware");
 
 const PORT=9009
 const app = express();
@@ -9,9 +9,9 @@ const app = express();
 app.use(express.json());
 
 
-  // Esta ruta solo será accesible por usuarios con el rol de "admin"
+// Esta ruta solo será accesible por usuarios con el rol de "admin"
 
-// app.get('/user/admin', userIsAdminMDW, (req, res) => {
+// app.get('/user/admin', validateAuthMDW, (req, res) => {
 //   res.send('<h1>Hello, admin!</h1>');
 // });
 
@@ -24,6 +24,7 @@ app.get('/user', (req, res)=>{
 })
 
 app.use('/user',userRouter )
+app.use('/book', bookRouter)
 
 app.listen(PORT, async () => {
   await initializeDB();

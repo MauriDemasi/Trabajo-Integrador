@@ -29,12 +29,12 @@ const userIsAdminMDW = (req, res, next) => {
             console.err(err);
             return next(err);
         }
-        if (user.role === 'admin') {
+        if (user.username === 'admin') {
             req.user= user;
             return next();
         }
 
-        res.status(401).json({message: 'Unauthorized'});
+        res.status(401).json({message: 'Unauthorized pelotudo'});
     })(req, res, next);
 };
 

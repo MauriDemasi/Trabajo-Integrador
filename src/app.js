@@ -8,7 +8,12 @@ const app = express();
 
 app.use(express.json());
 
-app.use(userIsAdminMDW)
+
+  // Esta ruta solo será accesible por usuarios con el rol de "admin"
+
+// app.get('/user/admin', userIsAdminMDW, (req, res) => {
+//   res.send('<h1>Hello, admin!</h1>');
+// });
 
 
 app.get('/user', (req, res)=>{

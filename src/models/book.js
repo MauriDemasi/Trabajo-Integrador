@@ -11,7 +11,13 @@ const Book = sequelize.define("Books", {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: true,
-
+    // validate: {
+    //   isISBN(value) {
+    //     if (!validator.isISBN(value)) {
+    //       throw new Error('Invalid ISBN');
+    //     }
+    //   }
+    // }
   },
   titulo: {
     type: DataTypes.STRING,

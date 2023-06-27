@@ -31,4 +31,3 @@ app.listen(PORT, async () => {
   console.log(`Server running in ${PORT}`);
 });
 
-

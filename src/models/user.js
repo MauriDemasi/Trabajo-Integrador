@@ -34,7 +34,7 @@ const {sequelize} = require('../config/db-config');
 
 });
 
-sequelize.sync({ force: true }) // Esto eliminará y recreará la tabla en cada reinicio
+sequelize.sync({ force: false }) // todo!!Esto NO eliminará y recreará la tabla en cada reinicio
   .then(() => {
     return User.bulkCreate([
       { username: 'admin', email: 'admin@xacademy.com', password: 'admin' },

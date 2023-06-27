@@ -1,5 +1,6 @@
 const { Sequelize } = require("sequelize");
-const { User } = require('../models')
+const  {User}  = require('../models')
+
 
 const sequelize = new Sequelize({
   dialect: "sqlite",
@@ -14,6 +15,8 @@ const initializeDB = async () => {
   } catch (error) {
     console.error("Hubo un error al inicializar la base de datos", error);
   }
+
 };
+
 
 module.exports = { sequelize, initializeDB };

@@ -1,13 +1,13 @@
-const {bookService}= require('../services');
+const {libraryService}= require('../services');
 
-const createBook =  async (req, res) => {
+const createLibrary =  async (req, res) => {
     try {
-      console.log(`Book created by user with role ${req.user.role}`);
+      console.log(`Library created by user with role ${req.user.role}`);
   
-      const newBook = await bookService.createBook(req.body);
-      res.json(newBook);
+      const newLibrary = await libraryService.createLibrary(req.body);
+      res.json(newLibrary);
     } catch (err) {
-      res.status(400).json({ action: "createBook", error: err.message });
+      res.status(400).json({ action: "createLibrary", error: err.message });
     }
   };
 
@@ -51,4 +51,4 @@ const deleteBookById = async (req, res) => {
 }
 
 
-module.exports = {createBook, getBooksByCriteria, updateBookById, deleteBookById}
+module.exports = {createLibrary}

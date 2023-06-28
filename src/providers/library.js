@@ -1,12 +1,12 @@
-const {Book}= require ('../models');
+const {Library}= require ('../models');
 
 
-const createBook = async (book) => {
+const createLibrary = async (library) => {
     try {
-        const newBook = await Book.create(book);
-        return newBook;
+        const newLibrary = await Library.create(library);
+        return newLibrary;
     } catch (error) {
-        console.error("The book could not be created due to an error.", error);
+        console.error("The library could not be created due to an error.", error);
         throw error;
     }
 
@@ -68,4 +68,4 @@ const updateBookById = async (id, book) => {
 
 
 
-module.exports= {createBook, getBooksByCriteria, updateBookById, deleteBookById}
+module.exports= {createLibrary}

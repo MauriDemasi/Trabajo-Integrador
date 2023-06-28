@@ -1,4 +1,18 @@
+
+
 const {User} = require('../models')
+
+// const userModule = require('../providers/user');
+// console.log('Módulo user.js cargado:', userModule);
+
+
+
+// const createUsers = () => {
+//   return User.bulkCreate([
+//     { username: 'admin', email: 'admin@xacademy.com', password: 'admin' },
+//     { username: 'user', email: 'user1@xacademy.com', password: 'user1' },
+//   ]);
+// };
 
 
 const loginValidate = async (options) => {

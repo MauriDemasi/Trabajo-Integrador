@@ -18,7 +18,7 @@ const  Book  = require('./book')
     type: DataTypes.STRING,
     allowNull: false,
   },
-  telfono: {
+  telefono: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,

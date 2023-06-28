@@ -1,5 +1,5 @@
 const express = require("express");
-const { userRouter, bookRouter }= require("./routes")
+const { userRouter, bookRouter, libraryRouter }= require("./routes")
 const { initializeDB } = require("../src/config/db-config");
 const { validateAuthMDW } = require("./middleware/authMiddleware");
 
@@ -25,6 +25,7 @@ app.get('/user', (req, res)=>{
 
 app.use('/user',userRouter )
 app.use('/book', bookRouter)
+app.use('/library', libraryRouter)
 
 app.listen(PORT, async () => {
   await initializeDB();

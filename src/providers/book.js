@@ -47,7 +47,26 @@ const updateBookById = async (id, book) => {
     }
   };
   
+  const deleteBookById = async (id) => {
+    try {
+      const deletedBook = await Book.findOne({
+        where: {
+          id: id
+        }
+      });
+      await Book.destroy({
+        where: {
+          id: id
+        }
+      });
+      return deletedBook;
+    } catch (error) {
+      console.error("El libro no pudo ser eliminado debido a un error.", error);
+      throw error;
+    }
+  }
+  
 
 
 
-module.exports= {createBook, getBooksByCriteria, updateBookById}
+module.exports= {createBook, getBooksByCriteria, updateBookById, deleteBookById}

@@ -17,13 +17,17 @@ const getBooksByCriteria= async (options) => {
   return booksFound;
 }
 
-// bookService.js
+
 const updateBookById = async (id, update) => {
-  // ...
-  await Book.update(update, { where: { id } });
-  const updatedBook = await Book.findByPk(id);
+  await bookProvider.updateBookById(id, update);
+  const updatedBook = await bookProvider.getBooksByCriteria({id});
   return updatedBook;
 };
 
+const deleteBookById = async (id) => {
+  const deletedBook = await bookProvider.deleteBookById(id);
+  return deletedBook;
+}
 
-module.exports = {createBook, getBooksByCriteria, updateBookById}
+
+module.exports = {createBook, getBooksByCriteria, updateBookById, deleteBookById}

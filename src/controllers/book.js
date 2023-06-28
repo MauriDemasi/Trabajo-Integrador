@@ -22,8 +22,6 @@ const getBooksByCriteria= async (req, res) => {
 
 }
 
-// controller/book.js
-// controller/book.js
 const updateBookById = async (req, res) => {
   try {
     console.log('Updating book with id:', req.params.id);
@@ -37,5 +35,18 @@ const updateBookById = async (req, res) => {
 };
 
 
+const deleteBookById = async (req, res) => {
+  try {
+    console.log('Deleting book with id:', req.params.id);
+    const deletedBook = await bookService.deleteBookById(req.params.id);
+    console.log('Deleted book:', deletedBook);
+    res.json(deletedBook);
+  } catch (error) {
+    console.error('Error deleting book:', error);
+    res.status(400).json({ action: "deleteBookById", error: error.message });
+  }
 
-module.exports = {createBook, getBooksByCriteria, updateBookById}
+}
+
+
+module.exports = {createBook, getBooksByCriteria, updateBookById, deleteBookById}

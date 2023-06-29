@@ -1,9 +1,9 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require('../config/db-config');
+const Library = require('./library');
 
-const Book = sequelize.define("Books", {
-
-  
+class Book extends Model {}
+Book.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -13,13 +13,6 @@ const Book = sequelize.define("Books", {
     type: DataTypes.INTEGER,
     allowNull: false,
     unique: true,
-    // validate: {
-    //   isISBN(value) {
-    //     if (!validator.isISBN(value)) {
-    //       throw new Error('Invalid ISBN');
-    //     }
-    //   }
-    // }
   },
   titulo: {
     type: DataTypes.STRING,
@@ -33,13 +26,16 @@ const Book = sequelize.define("Books", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  library: {
+  libraryId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true, // Un libro puede no pertenecer a una librería
   },
-
 }, {
-  paranoid: true,
+  sequelize,
+  modelName: 'book',
 });
+
+Library.hasMany(Book, { foreignKey: 'libraryId' });
+Book.belongsTo(Library, { foreignKey: 'libraryId' });
 
 module.exports = Book;

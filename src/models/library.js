@@ -1,9 +1,8 @@
-const { DataTypes } = require("sequelize");
-const {sequelize} = require('../config/db-config');
-const  Book  = require('./book')
+const { DataTypes, Model } = require("sequelize");
+const { sequelize } = require('../config/db-config');
 
- const Library = sequelize.define("Librarys", {
-  
+class Library extends Model {}
+Library.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -23,10 +22,9 @@ const  Book  = require('./book')
     allowNull: false,
     unique: true,
   },
+}, {
+  sequelize,
+  modelName: 'library'
 });
-
-Book.belongsTo(Library);
-Library.hasMany(Book);
-
 
 module.exports = Library;

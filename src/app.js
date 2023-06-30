@@ -3,7 +3,6 @@ const { userRouter, bookRouter, libraryRouter } = require("./routes");
 const { initializeDB } = require("../src/config/db-config");
 const { populateTableUser } = require("./providers/user");
 
-
 const PORT = 9009;
 const app = express();
 
@@ -14,9 +13,9 @@ app.use(express.json());
 //   res.send('<h1>Hello World</h1>');
 // });
 
-app.use('/user', userRouter);
-app.use('/book', bookRouter);
-app.use('/library', libraryRouter);
+app.use("/user", userRouter);
+app.use("/book", bookRouter);
+app.use("/library", libraryRouter);
 
 app.listen(PORT, async () => {
   await initializeDB();

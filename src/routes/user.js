@@ -1,9 +1,19 @@
 const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
-const {userService} = require ('../services')
+const {userController} = require ('../controllers')
+const { validateAuthMDW } = require('../middleware/authMiddleware');
 
 const {SECRET}= require('../middleware/authMiddleware')
+
+router.post('/', validateAuthMDW, userController.createUser);
+
+router.get('/', userController.getUsers);
+router.get('/:id', userController.getUserById);
+
+router.put('/update/:id', validateAuthMDW, userController.updateUserById);
+
+router.delete('/delete/:id', validateAuthMDW, userController.deleteUserById);
 
 router.post('/login', (req, res) => {
     const { username, password } = req.body;

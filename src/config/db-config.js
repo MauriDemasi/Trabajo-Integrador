@@ -1,4 +1,5 @@
 const { Sequelize } = require('sequelize');
+const { populateTableUser } = require('../providers/user');
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',
@@ -7,6 +8,7 @@ const sequelize = new Sequelize({
 
 const initializeDB = async () => {
   try {
+    sequelize.sync({ force: true })
     await sequelize.authenticate();
     console.log('Conexión a la base de datos establecida');
     await sequelize.sync();

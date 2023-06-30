@@ -31,7 +31,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-// controller/user.js:
 const updateUserById = async (req, res) => {
   try {
     const { username, email, password } = req.body;

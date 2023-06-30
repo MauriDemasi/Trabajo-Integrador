@@ -31,7 +31,7 @@ const validateAuthMDW = (req, res, next) => {
       return next();
     }
 
-    res.status(401).json({ message: "Unauthorized pelotudo" });
+    res.status(401).json({ message: "Unauthorized" });
   })(req, res, next);
 };
 

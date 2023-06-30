@@ -1,5 +1,4 @@
 const { bookProvider } = require("../providers");
-const { Book } = require("../models");
 
 const createBook = async (book) => {
   return await bookProvider.createBook(book);

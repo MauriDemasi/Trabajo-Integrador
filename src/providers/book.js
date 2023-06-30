@@ -22,7 +22,11 @@ const getBooksByCriteria = async (options) => {
       validOptions.forEach(option => {
           if (options[option]) where[option] = options[option];
       });
-      const books = await Book.findAll({ where });
+      where.deletedAt = null; 
+      const books = await Book.findAll({ 
+        where,
+        attributes: { exclude: ['deletedAt'] } 
+      });
       return books;
   } catch (error) {
       console.error("The books could not be retrieved due to an error.", error);

@@ -1,7 +1,7 @@
 const express = require("express");
 const { userRouter, bookRouter, libraryRouter } = require("./routes");
 const { initializeDB } = require("../src/config/db-config");
-const { validateAuthMDW } = require("./middleware/authMiddleware");
+
 
 const PORT = 9009;
 const app = express();

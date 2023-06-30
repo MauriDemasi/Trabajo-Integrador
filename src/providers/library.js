@@ -1,4 +1,4 @@
-const {Library}= require ('../models');
+const {Library, Book}= require ('../models');
 
 
 const createLibrary = async (library) => {
@@ -13,59 +13,111 @@ const createLibrary = async (library) => {
 }
 
 
-//Esta funcion busca todos los libros, o aquellos que cumplan con un criterio de busqueda
+//Esta funcion busca todos las librerias, o aquellas que cumplan con un criterio de busqueda
 
-const getBooksByCriteria = async (options) => {
+const getLibrariesByCriteria = async (options) => {
   try {
-      const where = {};
-      const validOptions = ['titulo', 'autor', 'anio', 'isbn', 'id', 'library'];
-      validOptions.forEach(option => {
-          if (options[option]) where[option] = options[option];
-      });
-      const books = await Book.findAll({ where });
-      return books;
+    const where = {};
+    const validOptions = ['id', 'name', 'location', 'telefono'];
+    validOptions.forEach(option => {
+      if (options[option]) where[option] = options[option];
+    });
+    where.deletedAt = null;
+
+    const libraries = await Library.findAll({ 
+      where,
+      include: {
+        model: Book,
+        where: { deletedAt: null },
+        attributes: { exclude: ['deletedAt'] },
+      },
+      attributes: { exclude: ['deletedAt'] },
+    });
+
+    return libraries;
   } catch (error) {
-      console.error("The books could not be retrieved due to an error.", error);
-      throw error;
+    console.error("The library/ies could not be retrieved due to an error.", error);
+    throw error;
   }
 }
 
 
-const updateBookById = async (id, book) => {
-    try {
-      const updatedBook = await Book.update(book, {
-        where: {
-          id: id
-        },
-        returning: true // Agrega esta opción para obtener el libro actualizado
-      });
-      return updatedBook[1][0]; // Devuelve el primer libro actualizado de la matriz
-    } catch (error) {
-      console.error("El libro no pudo ser actualizado debido a un error.", error);
-      throw error;
+const getLibraryById = async (id) => {
+  try {
+    const library = await Library.findByPk(id, {
+      include: {
+        model: Book,
+        where: { deletedAt: null },
+        attributes: { exclude: ['deletedAt'] },
+      },
+      attributes: { exclude: ['deletedAt'] },
+    });
+
+    if (!library) {
+      throw new Error(`No library found with id ${id}`);
     }
-  };
+
+    return library;
+  } catch (error) {
+    console.error("The library could not be retrieved due to an error.", error);
+    throw error;
+  }
+};
+
+
+
+const updateLibraryById = async (id, library) => {
+  try {
+    const updatedLibrary = await Library.update(library, {
+      where: {
+        id: id
+      },
+      returning: true // Agrega esta opción para obtener la libreria actualizada
+    });
+    return updatedLibrary[1][0]; 
+  } catch (error) {
+    console.error("La libreria no pudo ser actualizado debido a un error.", error);
+    throw error;
+  }
+};
+
+
   
-  const deleteBookById = async (id) => {
+  const deleteLibraryById = async (id) => {
     try {
-      const deletedBook = await Book.findOne({
+      const deletedLibrary = await Library.findOne({
         where: {
           id: id
         }
       });
-      await Book.destroy({
+      await Library.destroy({
         where: {
           id: id
         }
       });
-      return deletedBook;
+      return deletedLibrary;
     } catch (error) {
-      console.error("El libro no pudo ser eliminado debido a un error.", error);
+      console.error("La libreria no pudo ser eliminado debido a un error.", error);
       throw error;
     }
   }
+
+  const createBookFromLibrary = async (libraryId, bookData) => {
+    const newBook = await Book.create(bookData);
+    await newBook.setLibrary(libraryId);
+    return newBook;
+  }
+  
+
   
 
 
 
-module.exports= {createLibrary}
+module.exports= {
+  createLibrary, 
+  getLibrariesByCriteria,
+  getLibraryById, 
+  updateLibraryById, 
+  deleteLibraryById,
+  createBookFromLibrary,
+}

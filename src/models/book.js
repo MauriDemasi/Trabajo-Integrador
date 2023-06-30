@@ -12,7 +12,6 @@ Book.init({
   isbn: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    unique: true,
   },
   titulo: {
     type: DataTypes.STRING,
@@ -33,9 +32,13 @@ Book.init({
 }, {
   sequelize,
   modelName: 'book',
+  paranoid: true
 });
 
-Library.hasMany(Book, { foreignKey: 'libraryId' });
+Library.hasMany(Book, { 
+  foreignKey: 'libraryId',
+  onDelete: 'SET NULL',
+ });
 Book.belongsTo(Library, { foreignKey: 'libraryId' });
 
 module.exports = Book;

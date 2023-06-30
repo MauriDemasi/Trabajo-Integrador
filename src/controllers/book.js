@@ -11,7 +11,6 @@ const createBook =  async (req, res) => {
     }
   };
 
-//Esta funcion busca todos los libros, o aquellos que cumplan con un criterio de busqueda
 
 
 const getBooksByCriteria= async (req, res) => {

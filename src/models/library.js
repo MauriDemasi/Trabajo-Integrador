@@ -24,7 +24,8 @@ Library.init({
   },
 }, {
   sequelize,
-  modelName: 'library'
+  modelName: 'library',
+  paranoid: true
 });
 
 module.exports = Library;

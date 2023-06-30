@@ -1,5 +1,4 @@
 const {libraryProvider}= require('../providers');
-const { Library } = require('../models');
 
 
 const createLibrary = async (library) => {
@@ -7,27 +6,40 @@ const createLibrary = async (library) => {
   };
 
 
-const getBooksByCriteria= async (options) => {
-  const booksFound = await bookProvider.getBooksByCriteria(options);
+const getLibrariesByCriteria= async (options) => {
+  const librariesFound = await libraryProvider.getLibrariesByCriteria(options);
   
-  if(booksFound.length === 0) {
+  if(librariesFound.length === 0) {
     return null;
   }
 
-  return booksFound;
+  return librariesFound;
 }
 
 
-const updateBookById = async (id, update) => {
-  await bookProvider.updateBookById(id, update);
-  const updatedBook = await bookProvider.getBooksByCriteria({id});
-  return updatedBook;
+const updateLibraryById = async (id, update) => {
+  await libraryProvider.updateLibraryById(id, update);
+  const updatedLibrary = await libraryProvider.getLibraryById(id)
+  return updatedLibrary;
 };
 
-const deleteBookById = async (id) => {
-  const deletedBook = await bookProvider.deleteBookById(id);
-  return deletedBook;
+
+const deleteLibraryById = async (id) => {
+  const deletedLibrary = await libraryProvider.deleteLibraryById(id);
+  return deletedLibrary;
+}
+
+const createBookFromLibrary = async (libraryId, bookData) => {
+  const newBook= await libraryProvider.createBookFromLibrary(libraryId, bookData);
+  return newBook;
+
 }
 
 
-module.exports = {createLibrary}
+module.exports = {
+  createLibrary, 
+  getLibrariesByCriteria, 
+  updateLibraryById, 
+  deleteLibraryById, 
+  createBookFromLibrary,
+}

@@ -27,10 +27,11 @@ User.init({
   },
 }, {
   sequelize,
-  modelName: 'user'
+  modelName: 'user',
+  paranoid: true
 });
 
-sequelize.sync({ force: true })
+sequelize.sync({ force: false })
   .then(() => {
     return User.bulkCreate([
       { username: 'admin', email: 'admin@xacademy.com', password: 'admin' },
